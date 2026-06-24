@@ -1,0 +1,39 @@
+# Credit Card Fraud ML Pipeline — Configuration
+
+preprocessing:
+  test_size: 0.20
+  random_state: 42
+  smote: true
+
+svm:
+  param_grid:
+    C: [0.1, 1, 10]
+    kernel: [rbf]
+    gamma: [scale]
+
+xgboost:
+  param_grid:
+    n_estimators: [100, 200]
+    max_depth: [3, 5]
+    learning_rate: [0.05, 0.1]
+    # NOTE: scale_pos_weight is set automatically from class ratio — do NOT add here
+
+lightgbm:
+  param_grid:
+    n_estimators: [100, 200]
+    max_depth: [3, 5]
+    learning_rate: [0.05, 0.1]
+    # NOTE: is_unbalance is set on the base estimator — do NOT add here
+
+shap:
+  max_display: 15
+  background_samples: 100
+
+experiment:
+  log_dir: outputs/experiments
+  log_file: runs.json
+
+output:
+  model_dir: outputs/models
+  plot_dir: outputs
+  log_level: INFO

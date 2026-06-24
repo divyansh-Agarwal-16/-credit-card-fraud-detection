@@ -1,0 +1,34 @@
+version: "3.9"
+
+services:
+  # ── Train Pipeline ──────────────────────────────────────────────────────────
+  pipeline:
+    build: .
+    container_name: fraud-pipeline-train
+    volumes:
+      - ./outputs:/app/outputs
+    command: python scripts/train.py
+    environment:
+      - PYTHONPATH=/app
+
+  # ── API Server ──────────────────────────────────────────────────────────────
+  api:
+    build: .
+    container_name: fraud-detection-api
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./outputs:/app/outputs
+    depends_on:
+      - pipeline
+    environment:
+      - PYTHONPATH=/app
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+volumes:
+  outputs:

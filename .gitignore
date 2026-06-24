@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+*.egg-info/
+dist/
+build/
+.eggs/
+*.egg
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Generated outputs (don't commit trained models or plots)
+outputs/models/*.joblib
+outputs/*.png
+outputs/experiments/runs.json
+
+# Keep directory structure
+!outputs/models/.gitkeep
+!outputs/experiments/.gitkeep
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Env files
+.env
+*.env
